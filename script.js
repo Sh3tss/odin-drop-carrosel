@@ -16,9 +16,9 @@ window.addEventListener('click', (event) => {
 
         dropRemove.forEach(content => {
             content.classList.remove('visible');
-        })
-    }
-})
+        });
+    };
+});
 
 //carrousel part
 const carrouselContainer = document.querySelector('.carousel-slide');
@@ -48,12 +48,27 @@ function prevSlide(){
 function showSlide(){
     const moveAmount = -currentSlide * 600;
     carrouselContainer.style.transform = `translateX(${moveAmount}px)`;
+
+    navigationDot.forEach(dot => {
+        dot.classList.remove('active');
+    });
+
+    navigationDot[currentSlide].classList.add('active');
 }
+
+navigationDot.forEach((dot, index) => {
+    dot.addEventListener('click', (event) => {
+        currentSlide = index;
+        showSlide();
+    });
+});
 
 nextBtn.addEventListener('click', (event) => {
     nextSlide();
-})
+});
 
 previusBtn.addEventListener('click', (event) => {
     prevSlide();
-})
+});
+
+setInterval(nextSlide, 5000);
